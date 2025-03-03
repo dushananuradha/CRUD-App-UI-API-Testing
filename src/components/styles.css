@@ -1,0 +1,33 @@
+.btn-custom {
+    background-color: #f72500; /* Custom color (Tomato in this example) */
+    border-color: #f72500;
+    color: rgb(255, 255, 255);
+}
+
+.btn-custom:hover {
+    background-color: #FF4500; /* Darker color on hover */
+    border-color: #FF4500;
+}
+
+.table td, .table th {
+    font-size:larger;
+    padding: 16px;
+    min-width: 150px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.table th.dashboard-header {
+    text-align: center;
+}
+
+.center-buttons {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box {
+    width: 50%;
+    margin: 0 auto;
+}
