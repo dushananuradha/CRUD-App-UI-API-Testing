@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
 
 const GetPlayers = () => {
+    const HOST_URL = import.meta.env.VITE_HOST_URL;
     const [players, setPlayers] = useState([]);
 
     useEffect(() => {
         const fetchPlayers = async () => {
             try {
-                const response = await fetch("http://localhost:8080/getAllPlayers");
+                const response = await fetch(`${HOST_URL}/getAllPlayers`);
                 const playersData = await response.json();
                 setPlayers(playersData);
             } catch (error) {
@@ -15,8 +16,8 @@ const GetPlayers = () => {
             }
         }
         fetchPlayers();
-    },[]);
-    
+    }, []);
+
     return (
         <div>
             <h1>GetPlayers</h1>

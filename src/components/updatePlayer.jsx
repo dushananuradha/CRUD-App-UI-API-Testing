@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from "react-router-dom";
 
 const UpdatePlayer = () => {
+    const HOST_URL = import.meta.env.VITE_HOST_URL;
 
     const { playerID } = useParams();
     const [formData, setFormData] = useState({
@@ -28,7 +29,7 @@ const UpdatePlayer = () => {
     useEffect(() => {
         const fetchPlayerDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/getPlayerByID/${playerID}`);
+                const response = await fetch(`${HOST_URL}/getPlayerByID/${playerID}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -55,7 +56,7 @@ const UpdatePlayer = () => {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:8080/updatePlayer/${playerID}`, {
+            const response = await fetch(`${HOST_URL}/updatePlayer/${playerID}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -108,16 +109,16 @@ const UpdatePlayer = () => {
                 <Button variant="dark" type="submit" className="w-100">Update Player</Button>
 
                 <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Notification</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>{modalMessage}</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Notification</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{modalMessage}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </Form>
         </div>
     )

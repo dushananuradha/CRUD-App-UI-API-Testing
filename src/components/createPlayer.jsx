@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from "react-router-dom";
 
 const CreatePlayer = () => {
+    const HOST_URL = import.meta.env.VITE_HOST_URL;
     const [formData, setFormData] = useState({
         name: "",
         sport: ""
@@ -23,7 +24,7 @@ const CreatePlayer = () => {
             return;
         }
         try {
-            const response = await fetch("http://localhost:8080/createPlayer", {
+            const response = await fetch(`${HOST_URL}/createPlayer`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

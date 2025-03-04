@@ -7,6 +7,7 @@ import Dashboard from "./components/dashboard";
 import Header from "./components/header";
 import CreatePlayer from "./components/createPlayer";
 import UpdatePlayer from "./components/updatePlayer";
+import PlayerDetails from "./components/playerDetails";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             path="/updatePlayer/:playerID"
             element={<UpdatePlayer />}
           ></Route>
+          <Route path="/playerDetails" element={<PlayerDetails />}></Route>
         </Routes>
       </div>
     </>

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 
 const Dashboard = () => {
+    const HOST_URL = import.meta.env.VITE_HOST_URL;
     const [players, setPlayers] = useState([]);
     const [search, setSearch] = useState("");
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Dashboard = () => {
 
     const fetchPlayers = async () => {
         try {
-            const response = await fetch("http://localhost:8080/getAllPlayers");
+            const response = await fetch(`${HOST_URL}/getAllPlayers`);
             const playersData = await response.json();
             setPlayers(playersData);
         } catch (error) {
@@ -42,7 +43,7 @@ const Dashboard = () => {
         const { id, name } = playerToDelete;
 
         try {
-            const response = await fetch(`http://localhost:8080/deletePlayer/${id}`, {
+            const response = await fetch(`${HOST_URL}/deletePlayer/${id}`, {
                 method: "DELETE",
             });
             if (response.ok) {
