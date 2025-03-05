@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Col, Table, Row, Container, Button, Form } from "react-bootstrap";
-import "./styles.css";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import "./styles.css";
 import Modal from "react-bootstrap/Modal";
 
 const Dashboard = () => {
@@ -74,6 +75,10 @@ const Dashboard = () => {
         setSearch(e.target.value);
     };
 
+    const handlePlayerInfoClick = (player) => {
+        navigate(`/playerDetails`, { state: { player } });
+    };
+
     const filteredPlayers = players.filter((player) =>
         player.name.toLowerCase().includes(search.toLowerCase())
     );
@@ -98,21 +103,36 @@ const Dashboard = () => {
                             <Table striped bordered hover size="sm">
                                 <thead>
                                     <tr>
-                                        <th className="dashboard-header">ID</th>
-                                        <th className="dashboard-header">Player</th>
-                                        <th className="dashboard-header">Sport</th>
-                                        <th className="dashboard-header" colSpan="2">Actions</th>
+                                        <th className="table-header">ID</th>
+                                        <th className="table-header">Player</th>
+                                        <th className="table-header">Sport</th>
+                                        <th className="table-header">Country</th>
+                                        <th className="table-header" colSpan="2">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="table-players" className="table-players">
                                     {filteredPlayers.map((player) => (
                                         <tr key={player._id}>
                                             <td>{player._id}</td>
-                                            <td>{player.name}</td>
+                                            <td>
+                                                <div className="player-name-container">
+                                                    {player.name}
+                                                    <i
+                                                        className="fa-solid fa-info-circle info-icon"
+                                                        data-tooltip="Click for more info"
+                                                        onClick={() => handlePlayerInfoClick(player._id)}
+                                                    ></i>
+                                                </div>
+                                            </td>
                                             <td>{player.sport}</td>
+                                            <td>{player.country}</td>
                                             <td>
                                                 <div className="center-buttons">
-                                                    <Button variant="dark" onClick={() => handleUpdate(player._id)}>
+                                                    <Button
+                                                        id="btn-player-update"
+                                                        variant="dark"
+                                                        onClick={() => handleUpdate(player._id)}
+                                                    >
                                                         Update
                                                     </Button>
                                                 </div>
@@ -120,6 +140,7 @@ const Dashboard = () => {
                                             <td>
                                                 <div className="center-buttons">
                                                     <Button
+                                                        id="btn-player-delete"
                                                         className="btn-custom"
                                                         onClick={() => showDeleteConfirmModal(player._id, player.name)}
                                                     >
@@ -154,10 +175,10 @@ const Dashboard = () => {
                 </Modal.Header>
                 <Modal.Body>Are you sure you want to delete this player?</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={handleClose} id="btn-cancel-delete">
                         Cancel
                     </Button>
-                    <Button variant="danger" onClick={handleDelete}>
+                    <Button variant="danger" onClick={handleDelete} id="btn-proceed-delete">
                         Proceed
                     </Button>
                 </Modal.Footer>

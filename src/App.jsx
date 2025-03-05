@@ -11,20 +11,22 @@ import PlayerDetails from "./components/playerDetails";
 
 function App() {
   return (
-    <>
-      <div className="App">
-        <Header></Header>
-        <Routes>
-          <Route path="/" element={<Dashboard />}></Route>
-          <Route path="/createPlayer" element={<CreatePlayer />}></Route>
-          <Route
-            path="/updatePlayer/:playerID"
-            element={<UpdatePlayer />}
-          ></Route>
-          <Route path="/playerDetails" element={<PlayerDetails />}></Route>
-        </Routes>
+    <div>
+      <div className="fixed-header-container">
+        <Header />
       </div>
-    </>
+
+      <div className="content-below-header">
+        <div className="tab-content-container">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/createPlayer" element={<CreatePlayer />} />
+            <Route path="/updatePlayer/:playerID" element={<UpdatePlayer />} />
+            <Route path="/playerDetails" element={<PlayerDetails />} />
+          </Routes>
+        </div>
+      </div>
+    </div>
   );
 }
 
