@@ -29,8 +29,8 @@
 }
 
 .search-box {
-    width: 50%;
-    margin: 0 auto;
+    width: 300px; /* Adjust the width as needed */
+    margin: 0 0 1rem 0; /* Remove auto margin for left alignment */
 }
 
 /*Create Player layout*/
@@ -230,3 +230,29 @@
     color: blue; 
     background-color: #e0e0e0;
 }
+
+
+/*PLayer filter component*/
+.filter-dropdown {
+    position: relative; /* To position the select dropdowns relative to this container */
+  }
+  
+  .filter-dropdown .dropdown-toggle {
+    background-color: #e9ecef; /* Light gray background for the button */
+    border-color: #ced4da; /* Match the border color to the background */
+  }
+  
+  .filter-dropdown .dropdown-menu {
+    min-width: 150px; /* Adjust width as needed */
+  }
+  
+  .filter-select {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    z-index: 1000;
+  }
+
+  .reset-filters-button {
+    margin-right: 1rem;
+  }

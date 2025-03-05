@@ -6,7 +6,31 @@ import "./styles.css";
 const PlayerDetails = () => {
     const { state } = useLocation();
     const [players, setPlayers] = useState([]);
-    const [selectedPlayer, setSelectedPlayer] = useState(state?.player || null);
+    const [selectedPlayer, setSelectedPlayer] = useState(null); // Initialize as null
+    const [selectedPlayerId, setSelectedPlayerId] = useState("");
+
+    useEffect(() => {
+        fetchPlayers();
+    }, []);
+
+    useEffect(() => {
+        if (state?.player) {
+            setSelectedPlayer(state.player);
+            setSelectedPlayerId(state.player._id);
+        }
+    }, [state]);
+
+    useEffect(() => {
+        if (selectedPlayerId && players.length > 0) {
+            const player = players.find((p) => p._id === selectedPlayerId);
+            setSelectedPlayer(player);
+        }
+    }, [selectedPlayerId, players]);
+
+    const handlePlayerSelect = (e) => {
+        const playerId = e.target.value;
+        setSelectedPlayerId(playerId);
+    };
 
     const fetchPlayers = async () => {
         try {
@@ -16,16 +40,6 @@ const PlayerDetails = () => {
         } catch (error) {
             console.error("Error while fetching players:", error.message);
         }
-    };
-
-    useEffect(() => {
-        fetchPlayers();
-    }, []);
-
-    const handlePlayerSelect = (e) => {
-        const playerId = e.target.value;
-        const player = players.find((p) => p._id === playerId);
-        setSelectedPlayer(player);
     };
 
     return (
@@ -38,7 +52,7 @@ const PlayerDetails = () => {
                             as="select" 
                             onChange={handlePlayerSelect} 
                             id="form-list" 
-                            value={selectedPlayer ? selectedPlayer._id : ""}
+                            value={selectedPlayerId}
                         >
                             <option value="">Select a player to view details</option>
                             {players.map((player) => (

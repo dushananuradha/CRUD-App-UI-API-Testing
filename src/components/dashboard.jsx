@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Col, Table, Row, Container, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineInfoCircle } from "react-icons/ai";
-import "./styles.css";
 import Modal from "react-bootstrap/Modal";
+import "./styles.css";
+import PlayerFilter from "./playerFilter";
 
 const Dashboard = () => {
     const HOST_URL = import.meta.env.VITE_HOST_URL;
@@ -14,6 +14,10 @@ const Dashboard = () => {
     const [modalMessage, setModalMessage] = useState("");
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [playerToDelete, setPlayerToDelete] = useState(null);
+    const [filterSport, setFilterSport] = useState(false);
+    const [filterCountry, setFilterCountry] = useState(false);
+    const [selectedSport, setSelectedSport] = useState(null);
+    const [selectedCountry, setSelectedCountry] = useState(null);
 
     const fetchPlayers = async () => {
         try {
@@ -44,7 +48,7 @@ const Dashboard = () => {
         const { id, name } = playerToDelete;
 
         try {
-            const response = await fetch(`${HOST_URL}/deletePlayer/${id}`, {
+            const response = await fetch(`<span class="math-inline">\{HOST\_URL\}/deletePlayer/</span>{id}`, {
                 method: "DELETE",
             });
             if (response.ok) {
@@ -79,9 +83,82 @@ const Dashboard = () => {
         navigate(`/playerDetails`, { state: { player } });
     };
 
-    const filteredPlayers = players.filter((player) =>
-        player.name.toLowerCase().includes(search.toLowerCase())
-    );
+    const handleFilterSportChange = (e) => {
+        if (e && e.target && typeof e.target.checked === "boolean") {
+            setFilterSport(e.target.checked);
+            if (!e.target.checked) {
+                setSelectedSport(null);
+            }
+        } else if (e && e.target && e.target.value) {
+            setSelectedSport(e.target.value);
+        } else if (e && e.value) {
+            setSelectedSport(e.value);
+        } else {
+            setSelectedSport(null);
+        }
+    };
+
+    const handleFilterCountryChange = (e) => {
+        if (e && e.target && typeof e.target.checked === "boolean") {
+            setFilterCountry(e.target.checked);
+            if (!e.target.checked) {
+                setSelectedCountry(null);
+            }
+        } else if (e && e.target && e.target.value) {
+            setSelectedCountry(e.target.value);
+        } else if (e && e.value) {
+            setSelectedCountry(e.value);
+        } else {
+            setSelectedCountry(null);
+        }
+    };
+
+    const handleFilterSportCheckboxChange = (e) => {
+        setFilterSport(e.target.checked);
+        if (!e.target.checked) {
+            setSelectedSport(null);
+        }
+    };
+
+    const handleFilterCountryCheckboxChange = (e) => {
+        setFilterCountry(e.target.checked);
+        if (!e.target.checked) {
+            setSelectedCountry(null);
+        }
+    };
+
+    const uniqueSports = Array.from(new Set(players.map((player) => player.sport)));
+    const uniqueCountries = Array.from(new Set(players.map((player) => player.country)));
+
+    const handleResetFilters = () => {
+        setSearch("");
+        setFilterSport(false);
+        setFilterCountry(false);
+        setSelectedSport(null);
+        setSelectedCountry(null);
+    };
+
+    const applyFilters = () => {
+        let results = players;
+
+        if (search) {
+            results = results.filter((player) =>
+                player.name.toLowerCase().includes(search.toLowerCase())
+            );
+        }
+
+        if (filterSport && selectedSport) {
+            results = results.filter((player) => player.sport === selectedSport);
+        }
+
+        if (filterCountry && selectedCountry) {
+            results = results.filter((player) => player.country === selectedCountry);
+        }
+
+        return results;
+    };
+
+    const results = applyFilters();
 
     return (
         <div>
@@ -92,14 +169,33 @@ const Dashboard = () => {
                         <Button variant="primary" onClick={fetchPlayers} className="mb-3">
                             Refresh Table
                         </Button>
-                        <Form.Control
-                            type="text"
-                            placeholder="Search players"
-                            value={search}
-                            onChange={handleSearchChange}
-                            className="mb-3 search-box"
-                        />
-                        {filteredPlayers.length > 0 ? (
+                        <Row>
+                            <Col xs={12} md={6}>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Search players"
+                                    value={search}
+                                    onChange={handleSearchChange}
+                                    className="mb-3 search-box"
+                                />
+                            </Col>
+                            <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
+                                <Button variant="secondary" onClick={handleResetFilters} className="reset-filters-button">
+                                    Reset Filters
+                                </Button>
+                                <PlayerFilter
+                                    filterCountry={filterCountry}
+                                    filterSport={filterSport}
+                                    handleFilterCountryChange={handleFilterCountryChange}
+                                    handleFilterSportChange={handleFilterSportChange}
+                                    handleFilterCountryCheckboxChange={handleFilterCountryCheckboxChange}
+                                    handleFilterSportCheckboxChange={handleFilterSportCheckboxChange}
+                                    countries={uniqueCountries}
+                                    sports={uniqueSports}
+                                />
+                            </Col>
+                        </Row>
+                        {results && results.length > 0 ? (
                             <Table striped bordered hover size="sm">
                                 <thead>
                                     <tr>
@@ -111,7 +207,7 @@ const Dashboard = () => {
                                     </tr>
                                 </thead>
                                 <tbody id="table-players" className="table-players">
-                                    {filteredPlayers.map((player) => (
+                                    {results.map((player) => (
                                         <tr key={player._id}>
                                             <td>{player._id}</td>
                                             <td>
@@ -120,7 +216,7 @@ const Dashboard = () => {
                                                     <i
                                                         className="fa-solid fa-info-circle info-icon"
                                                         data-tooltip="Click for more info"
-                                                        onClick={() => handlePlayerInfoClick(player._id)}
+                                                        onClick={() => handlePlayerInfoClick(player)}
                                                     ></i>
                                                 </div>
                                             </td>
@@ -172,7 +268,7 @@ const Dashboard = () => {
             <Modal show={showConfirmModal} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Deletion</Modal.Title>
-                </Modal.Header>
+                    </Modal.Header>
                 <Modal.Body>Are you sure you want to delete this player?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose} id="btn-cancel-delete">
