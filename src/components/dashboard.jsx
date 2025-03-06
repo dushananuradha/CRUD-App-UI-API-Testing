@@ -3,7 +3,8 @@ import { Col, Table, Row, Container, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import "./styles.css";
-import PlayerFilter from "./playerFilter";
+import PlayerFilterByCountry from "./playerFilterByCountry";
+import PlayerFilterBySport from "./playerFilterBySport";
 
 const Dashboard = () => {
     const HOST_URL = import.meta.env.VITE_HOST_URL;
@@ -48,7 +49,7 @@ const Dashboard = () => {
         const { id, name } = playerToDelete;
 
         try {
-            const response = await fetch(`<span class="math-inline">\{HOST\_URL\}/deletePlayer/</span>{id}`, {
+            const response = await fetch(`${HOST_URL}/deletePlayer/${id}`, {
                 method: "DELETE",
             });
             if (response.ok) {
@@ -83,52 +84,30 @@ const Dashboard = () => {
         navigate(`/playerDetails`, { state: { player } });
     };
 
-    const handleFilterSportChange = (e) => {
-        if (e && e.target && typeof e.target.checked === "boolean") {
-            setFilterSport(e.target.checked);
-            if (!e.target.checked) {
-                setSelectedSport(null);
-            }
-        } else if (e && e.target && e.target.value) {
-            setSelectedSport(e.target.value);
-        } else if (e && e.value) {
-            setSelectedSport(e.value);
-        } else {
-            setSelectedSport(null);
-        }
-    };
-
-    const handleFilterCountryChange = (e) => {
-        if (e && e.target && typeof e.target.checked === "boolean") {
-            setFilterCountry(e.target.checked);
-            if (!e.target.checked) {
-                setSelectedCountry(null);
-            }
-        } else if (e && e.target && e.target.value) {
-            setSelectedCountry(e.target.value);
-        } else if (e && e.value) {
-            setSelectedCountry(e.value);
-        } else {
-            setSelectedCountry(null);
-        }
-    };
-
-    const handleFilterSportCheckboxChange = (e) => {
+    const handleFilterSportToggle = (e) => {
         setFilterSport(e.target.checked);
         if (!e.target.checked) {
             setSelectedSport(null);
         }
     };
 
-    const handleFilterCountryCheckboxChange = (e) => {
+    const handleFilterCountryToggle = (e) => {
         setFilterCountry(e.target.checked);
         if (!e.target.checked) {
             setSelectedCountry(null);
         }
     };
 
-    const uniqueSports = Array.from(new Set(players.map((player) => player.sport)));
-    const uniqueCountries = Array.from(new Set(players.map((player) => player.country)));
+    const handleFilterSportSelect = (selectedOption) => {
+        setSelectedSport(selectedOption ? selectedOption.value : null);
+    };
+
+    const handleFilterCountrySelect = (selectedOption) => {
+        setSelectedCountry(selectedOption ? selectedOption.value : null);
+    };
+
+    const uniqueSports = players && players.length > 0 ? Array.from(new Set(players.map((player) => player.sport))) : [];
+    const uniqueCountries = players && players.length > 0 ? Array.from(new Set(players.map((player) => player.country))) : [];
 
     const handleResetFilters = () => {
         setSearch("");
@@ -177,22 +156,53 @@ const Dashboard = () => {
                                     value={search}
                                     onChange={handleSearchChange}
                                     className="mb-3 search-box"
+
                                 />
                             </Col>
-                            <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
-                                <Button variant="secondary" onClick={handleResetFilters} className="reset-filters-button">
-                                    Reset Filters
-                                </Button>
-                                <PlayerFilter
-                                    filterCountry={filterCountry}
-                                    filterSport={filterSport}
-                                    handleFilterCountryChange={handleFilterCountryChange}
-                                    handleFilterSportChange={handleFilterSportChange}
-                                    handleFilterCountryCheckboxChange={handleFilterCountryCheckboxChange}
-                                    handleFilterSportCheckboxChange={handleFilterSportCheckboxChange}
-                                    countries={uniqueCountries}
-                                    sports={uniqueSports}
+                            <Col xs={12} md={6} className="d-flex justify-content-end align-items-center" >
+                                <Form.Check
+                                    type="checkbox"
+                                    label="Filter By Country"
+                                    checked={filterCountry}
+                                    onChange={handleFilterCountryToggle}
+                                    className="mr-2"
+                                    style={{
+                                        marginRight: "-20px",
+                                        minWidth: "180px",
+                                        paddingLeft: "2.2rem", // Reduced padding
+                                    }}
                                 />
+                                <PlayerFilterByCountry
+                                    filterCountry={filterCountry}
+                                    handleFilterCountryChange={handleFilterCountrySelect}
+                                    countries={uniqueCountries}
+                                />
+                                <Form.Check
+                                    type="checkbox"
+                                    label="Filter By Sport"
+                                    checked={filterSport}
+                                    onChange={handleFilterSportToggle}
+                                    className="mr-2"
+                                    style={{
+                                        marginRight: "50px",
+                                        minWidth: "180px",
+                                        paddingLeft: "3.5rem", // Reduced padding
+                                    }}
+                                />
+                                <PlayerFilterBySport
+                                    filterSport={filterSport}
+                                    handleFilterSportChange={handleFilterSportSelect}
+                                    sports={uniqueSports}
+
+                                />
+                                <div style={{
+                                    marginRight: "-35px",
+                                    minWidth: "180px",
+                                }}>
+                                    <Button variant="secondary" onClick={handleResetFilters}>
+                                        Reset Filters
+                                    </Button>
+                                </div>
                             </Col>
                         </Row>
                         {results && results.length > 0 ? (
@@ -249,7 +259,13 @@ const Dashboard = () => {
                                 </tbody>
                             </Table>
                         ) : (
-                            <p>Not found a match</p>
+                            <p style={{
+                                marginTop: '100px',
+                                textAlign: 'center',
+                                fontSize: '18px',
+                                color: '#777',
+                                fontStyle: 'italic'
+                            }}>Not found a match</p>
                         )}
                     </Col>
                 </Row>
@@ -268,7 +284,7 @@ const Dashboard = () => {
             <Modal show={showConfirmModal} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Deletion</Modal.Title>
-                    </Modal.Header>
+                </Modal.Header>
                 <Modal.Body>Are you sure you want to delete this player?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose} id="btn-cancel-delete">

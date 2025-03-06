@@ -232,27 +232,41 @@
 }
 
 
-/*PLayer filter component*/
-.filter-dropdown {
-    position: relative; /* To position the select dropdowns relative to this container */
-  }
-  
-  .filter-dropdown .dropdown-toggle {
-    background-color: #e9ecef; /* Light gray background for the button */
-    border-color: #ced4da; /* Match the border color to the background */
-  }
-  
-  .filter-dropdown .dropdown-menu {
-    min-width: 150px; /* Adjust width as needed */
-  }
-  
-  .filter-select {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    z-index: 1000;
-  }
+/*Filter components*/
+.filter-select {
+    width: 200px;
+    margin-right: 10px;
+    text-align: left; 
+}
 
-  .reset-filters-button {
-    margin-right: 1rem;
-  }
+
+
+/* Increase gap between "Reset Filters" and "Filter Players" */
+.reset-filters-button {
+    margin-right: 20rem;
+}
+
+.form-check-label {
+    cursor: pointer; /* Add pointer cursor on hover */
+    padding: 5px 10px; /* Add padding for better hover area */
+    border: 1px solid #ced4da; /* Add border */
+    border-radius: 5px; /* Add border radius */
+}
+
+.form-check-input:checked + .form-check-label,
+.form-check-label:hover {
+    background-color: #4b74fd; /* Filled blue color on hover or checked */
+    color: white; /* White text on hover or checked */
+    border-color: #007bff; /* Blue border on hover or checked */
+}
+
+.form-check-input {
+    margin-right: 5px; /* Add space between checkbox and label */
+}
+
+.reset-filters-button {
+    width: 120px; /* Set a fixed width */
+    height: 38px; /* Set a fixed height */
+    padding: 8px 16px; /* Adjust padding as needed */
+    box-sizing: border-box; /* Include padding and border in width/height */
+}
