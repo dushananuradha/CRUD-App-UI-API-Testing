@@ -44,15 +44,25 @@ const PlayerDetails = () => {
 
     return (
         <Container className="mt-5">
-            <Row>
-                <Col>
+            <Row className="justify-content-center">
+
                     <h2>Player Details</h2>
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-3" 
+                    style={{ 
+                        position: "fixed", 
+                        top: "32%", 
+                        left: "50%", 
+                        transform: "translate(-50%, -50%)", 
+                        width: "300px",
+                        zIndex: 1000
+
+                    }}>
                         <Form.Control 
                             as="select" 
                             onChange={handlePlayerSelect} 
                             id="form-list" 
                             value={selectedPlayerId}
+                            style={{ width: "300px" }}
                         >
                             <option value="">Select a player to view details</option>
                             {players.map((player) => (
@@ -68,11 +78,11 @@ const PlayerDetails = () => {
                                 <Image
                                     src={selectedPlayer.profile}
                                     alt={`${selectedPlayer.name}'s profile`}
-                                    style={{ width: "250px", height: "300px" }}
+                                    style={{ width: "250px", height: "300px", marginTop: "50px"  }}
                                 />
                             </Col>
                             <Col>
-                                <Table striped bordered hover id="table-search-player">
+                                <Table striped bordered hover id="table-search-player"  style={{ marginTop: "50px" }}>
                                     <thead>
                                         <tr>
                                             <th className="table-header">Player Name</th>
@@ -93,7 +103,7 @@ const PlayerDetails = () => {
                             </Col>
                         </Row>
                     )}
-                </Col>
+            
             </Row>
         </Container>
     );

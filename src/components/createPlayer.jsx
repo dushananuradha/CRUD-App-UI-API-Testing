@@ -89,7 +89,7 @@ const CreatePlayer = () => {
         <div className="create-player-container">
             <h1>Create Player</h1>
             <Form onSubmit={handleSubmit} className="create-player-form">
-                <div className="form-grid"> {/* Add form-grid here */}
+                <div className="form-grid">
                     <Form.Group className="mb-3" controlId="formName">
                         <Form.Label>Player Name</Form.Label>
                         <Form.Control

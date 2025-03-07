@@ -250,7 +250,6 @@ const Dashboard = () => {
                                                     <div className="center-buttons">
                                                         <Button
                                                             id="btn-player-update"
-                                                            variant="dark"
                                                             onClick={() => handleUpdate(player._id)}
                                                         >
                                                             Update
