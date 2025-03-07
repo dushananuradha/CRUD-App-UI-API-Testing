@@ -13,13 +13,13 @@ const PlayerFilterByCountry = ({ filterCountry, handleFilterCountryChange, count
 
   const handleSelectChange = (selectedOption) => {
     handleFilterCountryChange(selectedOption);
-    setIsDropdownOpen(false); // Close the dropdown after selection
+    setIsDropdownOpen(false); 
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (filterContainerRef.current && !filterContainerRef.current.contains(event.target)) {
-        setIsDropdownOpen(false); // Only close the dropdown, don't clear the selection
+        setIsDropdownOpen(false); 
       }
     };
 
@@ -43,7 +43,7 @@ const PlayerFilterByCountry = ({ filterCountry, handleFilterCountryChange, count
             className="filter-select"
             onMenuOpen={() => setIsDropdownOpen(true)}
             onMenuClose={() => setIsDropdownOpen(false)}
-            menuIsOpen={isDropdownOpen} // Control the open state of the dropdown
+            menuIsOpen={isDropdownOpen} 
             styles={{
               control: (provided) => ({
                 ...provided,

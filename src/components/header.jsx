@@ -9,7 +9,7 @@ const Header = () => {
         <div>
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand>Players Database</Navbar.Brand>
+                <Navbar.Brand className="navbar-brand-custom">Players Database</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">

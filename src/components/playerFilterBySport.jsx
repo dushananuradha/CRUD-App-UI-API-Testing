@@ -50,11 +50,11 @@ const PlayerFilterBySport = ({ filterSport, handleFilterSportChange, sports }) =
                             }),
                             placeholder: (provided) => ({
                                 ...provided,
-                                whiteSpace: 'nowrap', // Prevent text wrapping
+                                whiteSpace: 'nowrap',
                             }),
                             menu: (provided) => ({
                                 ...provided,
-                                width: '140px', // Set the menu width to match the control width
+                                width: '140px',
                             }),
                             
                         }}

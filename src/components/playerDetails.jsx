@@ -6,7 +6,7 @@ import "./styles.css";
 const PlayerDetails = () => {
     const { state } = useLocation();
     const [players, setPlayers] = useState([]);
-    const [selectedPlayer, setSelectedPlayer] = useState(null); // Initialize as null
+    const [selectedPlayer, setSelectedPlayer] = useState(null);
     const [selectedPlayerId, setSelectedPlayerId] = useState("");
 
     useEffect(() => {

@@ -1,3 +1,15 @@
+.bg-body-tertiary {
+  border: 1px solid #ced4da
+}
+
+.navbar-brand-custom {
+    font-family: 'Arial', sans-serif; 
+    font-size: 28px; 
+    font-weight: bold; 
+    color: #010d1a; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+  }
+
 .btn-custom {
     background-color: #f72500;
     border-color: #f72500;
@@ -12,7 +24,7 @@
 .table td,
 .table th {
     font-size: larger;
-    padding: 16px;
+    padding: 8px;
     min-width: 150px;
     text-align: left;
     vertical-align: middle;
@@ -22,6 +34,10 @@
     text-align: center;
 }
 
+#table-players {
+    font-size: 14px;
+  }
+
 .center-buttons {
     display: flex;
     justify-content: center;
@@ -29,13 +45,13 @@
 }
 
 .search-box {
-    width: 300px; /* Adjust the width as needed */
-    margin: 0 0 1rem 0; /* Remove auto margin for left alignment */
+    width: 300px; 
+    margin: 0 0 1rem 0; 
 }
 
 /*Create Player layout*/
 .create-player-container {
-    width: 100%; /* Fill the entire width of the page */
+    width: 100%; 
     margin: 10px auto; 
     padding: 20px;
     background-color: #f8f8f8;
@@ -58,12 +74,12 @@
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px; 
 }
 
 .form-grid label {
-    grid-column: span 2; /* Label spans both columns */
+    grid-column: span 2; 
     text-align: left;
     padding-bottom: 8px; 
     font-weight: 500;
@@ -91,9 +107,9 @@
     font-size: 16px;
     margin-top: 20px;
     width: 200px; 
-    display: block; /* Makes the button a block element */
+    display: block;
     margin-left: auto;
-    margin-right: auto; /* Center the button */
+    margin-right: auto; 
 }
 
 .create-player-button:hover {
@@ -101,11 +117,11 @@
 }
 
 .radio-group {
-    grid-column: span 2; /* Spans both columns */
+    grid-column: span 2; 
     display: flex;
     align-items: center;
     gap: 15px; 
-    justify-content: center; /* Center the radio options */
+    justify-content: center; 
     margin-top: -5px; 
 }
 
@@ -131,14 +147,14 @@
 }
 
 .radio-option .form-check-input {
-    margin-top: -3px; /* Remove default top margin */
+    margin-top: -3px; 
 }
 
 .form-current-status {
     display: flex;
     flex-direction: column; 
     align-items: center;
-    width: 100%; /* Ensure it takes full width of its container */
+    width: 100%; 
 }
 /* Custom Select Styling */
 .custom-select__control {
@@ -150,7 +166,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    justify-content: space-between; /* Distribute space between name and icon */
+    justify-content: space-between;
 }
 
 .player-name {
@@ -247,26 +263,26 @@
 }
 
 .form-check-label {
-    cursor: pointer; /* Add pointer cursor on hover */
-    padding: 5px 10px; /* Add padding for better hover area */
-    border: 1px solid #ced4da; /* Add border */
-    border-radius: 5px; /* Add border radius */
+    cursor: pointer; 
+    padding: 5px 10px; 
+    border: 1px solid #ced4da; 
+    border-radius: 5px; 
 }
 
 .form-check-input:checked + .form-check-label,
 .form-check-label:hover {
-    background-color: #4b74fd; /* Filled blue color on hover or checked */
-    color: white; /* White text on hover or checked */
-    border-color: #007bff; /* Blue border on hover or checked */
+    background-color: #4b74fd;
+    color: white;
+    border-color: #007bff; 
 }
 
 .form-check-input {
-    margin-right: 5px; /* Add space between checkbox and label */
+    margin-right: 5px; 
 }
 
 .reset-filters-button {
-    width: 120px; /* Set a fixed width */
-    height: 38px; /* Set a fixed height */
-    padding: 8px 16px; /* Adjust padding as needed */
-    box-sizing: border-box; /* Include padding and border in width/height */
+    width: 120px;
+    height: 38px;
+    padding: 8px 16px;
+    box-sizing: border-box; 
 }
