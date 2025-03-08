@@ -23,24 +23,24 @@ const UpdatePlayer = () => {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setFormData({
-            ...formData,
+        setFormData(prevState => ({
+            ...prevState,
             [name]: value
-        });
+        }));
     };
 
     const handleCountryChange = (selectedOption) => {
-        setFormData({
-            ...formData,
+        setFormData(prevState => ({
+            ...prevState,
             country: selectedOption.value
-        });
+        }));
     };
 
     const handleCurrentStatusChange = (status) => {
-        setFormData({
-            ...formData,
+        setFormData(prevState => ({
+            ...prevState,
             currentStatus: status
-        });
+        }));
     };
 
     useEffect(() => {
@@ -93,7 +93,7 @@ const UpdatePlayer = () => {
             setModalMessage(`Player ${formData.name} updated successfully`);
             setShowModal(true);
             setTimeout(() => {
-                navigate('/');
+                navigate('/', { state: { shouldRefresh: true } }); 
             }, 2000);
         } catch (error) {
             console.error('Failed to fetch:', error);

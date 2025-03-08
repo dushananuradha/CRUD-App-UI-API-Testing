@@ -8,7 +8,7 @@ import PlayerFilterBySport from "./playerFilterBySport";
 
 const Dashboard = () => {
     const HOST_URL = import.meta.env.VITE_HOST_URL;
-    const [players, setPlayers] = useState();
+    const [players, setPlayers] = useState([]);
     const [search, setSearch] = useState("");
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
@@ -32,7 +32,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         fetchPlayers();
-    },);
+    }, []);
 
     const handleUpdate = (playerID) => {
         navigate(`/updatePlayer/${playerID}`);
@@ -151,7 +151,9 @@ const Dashboard = () => {
                 padding: "20px",
                 border: "1px solid #ced4da"
             }}>
-                <h1>Dashboard</h1>
+                
+                <div className="dashboard-top">
+                <h1 className="dashboard-header">Dashboard</h1>
                 <Container className="text-center">
                     <Row>
                         <Col>
@@ -169,35 +171,39 @@ const Dashboard = () => {
                                     />
                                 </Col>
                                 <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
-                                    <Form.Check
-                                        type="checkbox"
-                                        label="Filter By Country"
-                                        checked={filterCountry}
-                                        onChange={handleFilterCountryToggle}
-                                        className="mr-2"
-                                        style={{
-                                            marginRight: "-20px",
-                                            minWidth: "180px",
-                                            paddingLeft: "2.2rem",
-                                        }}
-                                    />
+                                    <div data-tooltip="Tick to filter" className="checkbox-tooltip-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
+                                        <Form.Check
+                                            type="checkbox"
+                                            label="Filter By Country"
+                                            checked={filterCountry}
+                                            onChange={handleFilterCountryToggle}
+                                            className="mr-2 custom-checkbox"
+                                            style={{
+                                                marginRight: "-20px",
+                                                minWidth: "180px",
+                                                paddingLeft: "2.2rem",
+                                            }}
+                                        />
+                                    </div>
                                     <PlayerFilterByCountry
                                         filterCountry={filterCountry}
                                         handleFilterCountryChange={handleFilterCountrySelect}
                                         countries={uniqueCountries}
                                     />
-                                    <Form.Check
-                                        type="checkbox"
-                                        label="Filter By Sport"
-                                        checked={filterSport}
-                                        onChange={handleFilterSportToggle}
-                                        className="mr-2"
-                                        style={{
-                                            marginRight: "50px",
-                                            minWidth: "180px",
-                                            paddingLeft: "3.5rem",
-                                        }}
-                                    />
+                                    <div data-tooltip="Tick to filter" className="checkbox-tooltip-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
+                                        <Form.Check
+                                            type="checkbox"
+                                            label="Filter By Sport"
+                                            checked={filterSport}
+                                            onChange={handleFilterSportToggle}
+                                            className="mr-2 custom-checkbox"
+                                            style={{
+                                                marginRight: "50px",
+                                                minWidth: "180px",
+                                                paddingLeft: "3.5rem",
+                                            }}
+                                        />
+                                    </div>
                                     <PlayerFilterBySport
                                         filterSport={filterSport}
                                         handleFilterSportChange={handleFilterSportSelect}
@@ -216,13 +222,14 @@ const Dashboard = () => {
                         </Col>
                     </Row>
                 </Container>
+                </div>
             </div>
             <div style={{ marginTop: "200px" }}>
                 <Container className="text-center">
                     <Row>
                         <Col>
                             {results && results.length > 0 ? (
-                                <Table striped bordered hover size="sm">
+                                <Table striped bordered hover id="table-players">
                                     <thead>
                                         <tr>
                                             <th className="table-header">Player</th>
@@ -231,7 +238,7 @@ const Dashboard = () => {
                                             <th className="table-header" colSpan="2">Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="table-players" className="table-players">
+                                    <tbody>
                                         {results.map((player) => (
                                             <tr key={player._id}>
                                                 <td>

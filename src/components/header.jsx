@@ -17,7 +17,7 @@ const Header = () => {
                                 Home
                             </Nav.Link>
                             <Nav.Link as={NavLink} to="/createPlayer" className="nav-link" id="btn-create-player">
-                                Create User
+                                Create Player
                             </Nav.Link>
                             <Nav.Link as={NavLink} to="/playerDetails" className="nav-link" id="btn-player-details">
                                 Player Details
