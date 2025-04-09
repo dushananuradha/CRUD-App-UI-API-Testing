@@ -44,8 +44,9 @@ const PlayerDetails = () => {
 
     return (
         <Container className="mt-5">
-    <Row className="justify-content-center">
-        <h2>Player Details</h2>
+            <h2 className="player-details-heading">Player Details</h2>
+    <Row className="mt-3 player-content-row">
+        
         <Form.Group className="mb-3"
             style={{
                 position: "fixed",

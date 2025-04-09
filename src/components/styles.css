@@ -13,11 +13,11 @@
 }
 
 .dashboard-header {
-    font-size: 40px;
+    font-size: 50px;
     font-weight: bolder;
-    color: #f8f8f8;
+    color: #fae900;
     text-shadow: 
-        20px 2px 4px rgba(255, 28, 28, 0.2), 
+        20px 2px 4px rgba(0, 0, 0, 0.2), 
         1px -1px 0 #000,
         1px -1px 0 #000, 
         -1px 1px 0 #000, 
@@ -26,7 +26,7 @@
 }
 
 .navbar-brand-custom {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 28px;
     font-weight: bold;
     color: #010d1a;
@@ -34,18 +34,22 @@
 
 }
 
-/* Dashboard Header */
-.custom-checkbox  {
-    font-family: 'Arial', sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    color: #ff1313;
-    background-color: #000;
-}
+/* Filter Buttons */
+.custom-checkbox .form-check-label{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    color: #000000;
+    background-color: #00e1f1;
+    border-radius: 5px; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
 
 .custom-checkbox .form-check-input {
     transition: all 0.3s ease; 
+    transform: scale(1.2);
     cursor: pointer; 
 }
 
@@ -372,9 +376,9 @@
     content: attr(data-tooltip);
     position: absolute;
     top: -15px;
-    left: 10%;
+    left: 0%;
     transform: translateX(-10%);
-    color: #050b2c;
+    color: #fbff00;
     padding: rgb(16, 12, 200)0px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
@@ -446,9 +450,9 @@
 
 .form-check-input:checked+.form-check-label,
 .form-check-label:hover {
-    background-color: #9ebcfd;
-    color: rgb(15, 0, 0);
-    border-color: #007bff;
+    background-color: #0d6efd;
+    color: rgb(255, 255, 255);
+    border-color: #000000;
 }
 
 .form-check-input {
@@ -463,6 +467,27 @@
 }
 
 /* Player Details Page */
+.player-details-heading {
+    font-weight:bolder;
+    position: fixed;
+    top: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+
+  }
+  
+  /* Responsive adjustment for small screens */
+  @media (max-width: 576px) {
+    .player-details-heading {
+      top: 12%;
+      font-size: 1.1rem;
+      padding: 0.4rem 0.8rem;
+    }
+  }
+  .player-content-row {
+    margin-top: 250px; /* Adjust to clear the fixed h2 and dropdown */
+  }
 #form-list {
     transition: box-shadow 0.3s ease;
 }

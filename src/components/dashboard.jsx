@@ -172,18 +172,15 @@ const Dashboard = () => {
                                 </Col>
                                 <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
                                     <div data-tooltip="Tick to filter" className="checkbox-tooltip-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
-                                        <Form.Check
-                                            type="checkbox"
-                                            label="Filter By Country"
-                                            checked={filterCountry}
-                                            onChange={handleFilterCountryToggle}
-                                            className="mr-2 custom-checkbox"
-                                            style={{
-                                                marginRight: "-20px",
-                                                minWidth: "180px",
-                                                paddingLeft: "2.2rem",
-                                            }}
-                                        />
+                                            <Form.Check
+                                                type="checkbox"
+                                                id="filterCountry"
+                                                label="Filter By Country"
+                                                checked={filterCountry}
+                                                onChange={handleFilterCountryToggle}
+                                                className="custom-checkbox me-3"
+                                            />
+
                                     </div>
                                     <PlayerFilterByCountry
                                         filterCountry={filterCountry}
@@ -191,18 +188,15 @@ const Dashboard = () => {
                                         countries={uniqueCountries}
                                     />
                                     <div data-tooltip="Tick to filter" className="checkbox-tooltip-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
-                                        <Form.Check
-                                            type="checkbox"
-                                            label="Filter By Sport"
-                                            checked={filterSport}
-                                            onChange={handleFilterSportToggle}
-                                            className="mr-2 custom-checkbox"
-                                            style={{
-                                                marginRight: "50px",
-                                                minWidth: "180px",
-                                                paddingLeft: "3.5rem",
-                                            }}
-                                        />
+                                            <Form.Check
+                                                type="checkbox"
+                                                id="filterSport"
+                                                label="Filter By Sport"
+                                                checked={filterSport}
+                                                onChange={handleFilterSportToggle}
+                                                className="custom-checkbox me-3"
+                                            />
+
                                     </div>
                                     <PlayerFilterBySport
                                         filterSport={filterSport}
